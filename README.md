@@ -5,27 +5,26 @@ This project provides a Python script (`timesheet_filler.py`) to automate the pr
 ## Features
 
 *   **Automated Login:** Logs into the timesheet system using provided credentials.
+*   **Excel Data Input:** Reads daily work entries (start time, end time, notes) from a structured Excel file.
 *   **Dynamic Row Addition:** Automatically adds new rows on the timesheet webpage for multiple entries on the same day.
 *   **Robust Field Filling:** Uses Selenium with explicit waits and JavaScript execution for reliable data entry.
 
 ## How to Use
 
 1.  **Prepare your Excel File:**
-    *   Ensure your Excel file (.xlsx) has the following columns (Hebrew names as used in the script):
-        *   שנה
-        *   חודש
-        *   יום
-        *   זמן התחלה
-        *   זמן סיום
-        *   שעות
-        *   מה
+    *   Ensure your Excel file (`.xlsx`) has the following columns (Hebrew names as used in the script):
+        *   `שנה` (Year)
+        *   `חודש` (Month)
+        *   `יום` (Day)
+        *   `זמן התחלה` (Start Time - e.g., "09:00")
+        *   `זמן סיום` (End Time - e.g., "17:00")
+        *   `שעות` (Hours - this column is read but not directly used for input, calculated by the system)
+        *   `מה` (Notes/Description of work)
     *   Example data:
         | שנה | חודש | יום | זמן התחלה | זמן סיום | שעות | מה |
         |-----|------|-----|------------|----------|------|----|
-        | 2025| 6    | 1   | 12:00      | 13:00    | 1:00 | טקסט כלשהו |
-        | 2025| 6    | 1   | 11:00      | 12:00    | 1:00 | טקסט כלשהו |
-        | 2025| 6    | 2   | 11:00      | 12:00    | 1:00 | טקסט כלשהו |
-        
+        | 2024| 6    | 25  | 09:00      | 13:00    | 4    | Project A |
+        | 2024| 6    | 25  | 14:00      | 17:00    | 3    | Project B |
 
 2.  **Install Dependencies:**
     Make sure you have Python installed. Then, install the required libraries:
@@ -46,3 +45,5 @@ This project provides a Python script (`timesheet_filler.py`) to automate the pr
 ## Important Note
 
 This script will fill in all the timesheet entries based on your Excel file. **It will NOT automatically click the "Submit" or "Save" button on the webpage.** After the script finishes, you will need to manually review the entries on the webpage and click the appropriate button to finalize your timesheet submission.
+
+```
