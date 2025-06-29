@@ -5,10 +5,6 @@ This project provides a Python script (`timesheet_filler.py`) to automate the pr
 ## Features
 
 *   **Automated Login:** Logs into the timesheet system using provided credentials.
-    *   Example data:
-        | שנה | חודש | יום | זמן התחלה | זמן סיום | שעות | מה |
-        |-----|------|-----|------------|----------|------|----|
-        | 2025| 6    | 1   | 12:00      | 13:00    | 1:00 | טקסט כלשהו |
 *   **Dynamic Row Addition:** Automatically adds new rows on the timesheet webpage for multiple entries on the same day.
 *   **Robust Field Filling:** Uses Selenium with explicit waits and JavaScript execution for reliable data entry.
 
@@ -27,6 +23,9 @@ This project provides a Python script (`timesheet_filler.py`) to automate the pr
         | שנה | חודש | יום | זמן התחלה | זמן סיום | שעות | מה |
         |-----|------|-----|------------|----------|------|----|
         | 2025| 6    | 1   | 12:00      | 13:00    | 1:00 | טקסט כלשהו |
+        | 2025| 6    | 1   | 11:00      | 12:00    | 1:00 | טקסט כלשהו |
+        | 2025| 6    | 2   | 11:00      | 12:00    | 1:00 | טקסט כלשהו |
+        
 
 2.  **Install Dependencies:**
     Make sure you have Python installed. Then, install the required libraries:
