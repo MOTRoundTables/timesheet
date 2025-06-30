@@ -1,7 +1,3 @@
-Of course. Here is the complete README in GitHub-flavored Markdown format, including code blocks, tables, and image embedding. You can copy and paste this directly into a `README.md` file for your repository.
-
----
-
 # Timesheet Automation Project
 
 This project provides a comprehensive GUI application to manage and automate the process of filling out an online timesheet. It reads data from an Excel file, allows for powerful data validation and editing, integrates with Google Calendar, and finally uses Selenium to input the data into a web-based timesheet system.
