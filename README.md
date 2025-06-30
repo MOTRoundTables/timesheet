@@ -54,10 +54,17 @@ For detailed, step-by-step instructions, please refer to the official Google doc
 
 Execute the `timesheet_gui.py` script to open the graphical user interface:
 
-**The App**
-<p align="center">
-  <img src="https://i.imgur.com/QaIuxjO.png" width="400">
-</p>
+<div align="center">
+
+## The App
+
+<img src="https://i.imgur.com/QaIuxjO.png" width="400">
+
+This is the Timesheet Automation application.<br>
+It loads credentials and file paths from `config.py` and allows integration with Google Calendar.
+
+</div>
+
 
 From the GUI, you can:
 *   **Import from Google Calendar:** Enable the Google Calendar integration using the toggle button, specify a date range, and import your calendar events into the Excel file. Existing Excel entries will always be preserved, and new Google Calendar events will be added on top of them, with conflict resolution for overlapping times.
