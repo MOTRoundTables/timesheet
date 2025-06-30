@@ -244,5 +244,10 @@ def automate_timesheet(excel_file_path, username, password, dry_run=False, headl
         # driver.quit() # Ensure driver quits after user input
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Automate timesheet filling.')
+    parser.add_argument('--headless', action='store_true', help='Run in headless mode.')
+    parser.add_argument('--dry-run', action='store_true', help='Run without making any changes.')
+    args = parser.parse_args()
+
     # Use credentials and file path from config.py
-    automate_timesheet(config.excel_file_path, config.username, config.password)
+    automate_timesheet(config.excel_file_path, config.username, config.password, dry_run=args.dry_run, headless=args.headless)
