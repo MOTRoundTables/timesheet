@@ -137,8 +137,13 @@ def update_excel_with_calendar_events(excel_path, events, conflict_resolution_ca
             change_log.append(f"Skipped all-day event '{summary}'.")
             continue
 
-        event_start_dt = datetime.datetime.fromisoformat(start.replace('Z', '+00:00'))
-        event_end_dt = datetime.datetime.fromisoformat(end.replace('Z', '+00:00'))
+        # Parse timezone-aware datetime from Google Calendar
+        event_start_dt_aware = datetime.datetime.fromisoformat(start.replace('Z', '+00:00'))
+        event_end_dt_aware = datetime.datetime.fromisoformat(end.replace('Z', '+00:00'))
+
+        # Convert to local timezone and then make them naive for comparison with Excel data
+        event_start_dt = event_start_dt_aware.astimezone().replace(tzinfo=None)
+        event_end_dt = event_end_dt_aware.astimezone().replace(tzinfo=None)
 
         date = event_start_dt.date()
         start_time_str = event_start_dt.strftime('%H:%M')

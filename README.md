@@ -10,6 +10,21 @@ This project provides a Python script (`timesheet_filler.py`) to automate the pr
 
     *   **Conflict Resolution:** When importing Google Calendar events, the system intelligently handles time overlaps with existing Excel entries. A graphical dialog will appear, allowing you to choose which events to keep (new, existing, both, or neither) using checkboxes, ensuring no data is overwritten without your explicit consent.
 
+    *   **Detailed Conflict Resolution Logic:**
+        When importing Google Calendar events, the system intelligently handles time overlaps. The process is as follows:
+        1.  **Load Existing Data:** All current entries from your Excel file are loaded into memory.
+        2.  **Process New Events Sequentially:** Each new event fetched from Google Calendar is processed one by one.
+        3.  **Duplicate Check:** Before checking for conflicts, the system verifies if the new Google event is an exact duplicate of an entry already in memory (either from Excel or a Google event already processed in the current run). Duplicates are skipped.
+        4.  **Overlap Detection:** If the new Google event is not a duplicate, its time slot is compared against *all* other events currently in memory. This includes:
+            *   Original entries from your Excel file.
+            *   Any other Google Calendar events that have already been successfully processed and added to memory during the current import session.
+        5.  **Interactive Resolution:** If an overlap is detected, a graphical dialog (`ConflictResolutionDialog`) will appear. This dialog presents both the new Google Calendar event and the specific conflicting event, allowing you to choose:
+            *   **Keep New:** Discard the existing conflicting event and add the new Google event.
+            *   **Keep Existing:** Discard the new Google event and retain the existing conflicting event.
+            *   **Keep Both:** Add the new Google event alongside the existing conflicting event.
+            *   **Keep Neither:** Discard both the new Google event and the existing conflicting event.
+        6.  **Dynamic Update:** Your decision in the pop-up directly updates the in-memory list of events. This ensures that subsequent conflict checks reflect the most current state of your timesheet data, providing granular control over each overlap.
+
 *   **Dynamic Row Addition:** Automatically adds new rows on the timesheet webpage for multiple entries on the same day.
 *   **Robust Field Filling:** Uses Selenium with explicit waits and JavaScript execution for reliable data entry.
 
