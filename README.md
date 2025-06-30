@@ -59,7 +59,7 @@ Execute the `timesheet_gui.py` script to open the graphical user interface:
 
 ## The App
 
-<img src="blob:https://imgur.com/ff6e188e-ad0e-41e7-9cdf-663a3e1f66f6" width="400">
+<img src="https://i.imgur.com/CDFIa97.png" width="400">
 
 This is the Timesheet Automation application.<br>
 It loads credentials and file paths from `config.py` and allows integration with Google Calendar.
