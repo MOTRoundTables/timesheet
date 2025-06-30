@@ -35,7 +35,8 @@ This project provides a Python script (`timesheet_filler.py`) to automate the pr
 
 Make sure you have Python installed. Then, install the required libraries:
 
-pip install pandas selenium webdriver-manager openpyxl google-api-python-client google-auth-httplib2 google-auth-oauthlib customtkinter
+pip install pandas selenium webdriver-manager openpyxl google-api-python-client google-auth-httplib2 google-auth-oauthlib customtkinter ttkbootstrap
+
 
 
 ### 3. Set Up Google Calendar API Credentials
@@ -58,7 +59,7 @@ Execute the `timesheet_gui.py` script to open the graphical user interface:
 
 ## The App
 
-<img src="https://i.imgur.com/QaIuxjO.png" width="400">
+<img src="https://i.imgur.com/dMAtDF8.png" width="400">
 
 This is the Timesheet Automation application.<br>
 It loads credentials and file paths from `config.py` and allows integration with Google Calendar.
