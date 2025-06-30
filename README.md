@@ -54,7 +54,7 @@ For detailed, step-by-step instructions, please refer to the official Google doc
 
 Execute the `timesheet_gui.py` script to open the graphical user interface:
 
-**The App
+**The App**
 <p align="center">
   <img src="https://i.imgur.com/QaIuxjO.png" width="400">
 </p>
