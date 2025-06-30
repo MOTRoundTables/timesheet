@@ -1,5 +1,5 @@
 # Timesheet Automation Project
-
+ 
 This project provides a Python script (`timesheet_filler.py`) to automate the process of filling out an online timesheet using Selenium. It reads timesheet data from an Excel file and inputs it into a web-based timesheet system. It also includes a feature to import events from Google Calendar into the Excel file.
 
 ## Features

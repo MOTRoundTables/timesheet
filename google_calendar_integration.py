@@ -224,7 +224,7 @@ def update_excel_with_calendar_events(excel_path, events, conflict_resolution_ca
     # Clear the sheet (except header) and rewrite with the consolidated data
     for row_idx in range(sheet.max_row, 1, -1):
         sheet.delete_rows(row_idx)
-
+ 
     all_events_to_write.sort(key=lambda x: (x['year'], x['month'], x['day'], x['start_dt']))
 
     for event_data in all_events_to_write:

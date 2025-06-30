@@ -12,7 +12,7 @@ class ConflictResolutionDialog(tk.Toplevel):
         self.transient(parent)
         self.grab_set()
         self.title("Conflict Detected")
-
+ 
         self.new_event = new_event
         self.existing_event = existing_event
         self.result = None  # Will store ('new', 'existing'), ('new',), ('existing',), or ()
