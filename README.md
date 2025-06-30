@@ -89,7 +89,7 @@ python timesheet_gui.py
 
 ## The App
 
-<img src="https://i.imgur.com/kRPjiFw.png" width="400">
+<img src="https://i.imgur.com/Irp81Co.png" width="400">
 
 This is the Timesheet Automation application.<br>
 It provides a complete suite of tools to manage and automate your timesheet.
