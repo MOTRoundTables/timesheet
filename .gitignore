@@ -3,3 +3,5 @@ __pycache__/
 working/
 config.py
 GEMINI.md
+credentials.json
+token.json
