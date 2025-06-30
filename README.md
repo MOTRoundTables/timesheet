@@ -1,5 +1,9 @@
 # Timesheet Automation Project
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> f3bd1b1e367192c48764b2eb3b7949f049fce562
 This project provides a Python script (`timesheet_filler.py`) to automate the process of filling out an online timesheet using Selenium. It reads timesheet data from an Excel file and inputs it into a web-based timesheet system. It also includes a feature to import events from Google Calendar into the Excel file.
 
 ## Features
@@ -7,6 +11,10 @@ This project provides a Python script (`timesheet_filler.py`) to automate the pr
 *   **Automated Login:** Logs into the timesheet system using provided credentials.
 *   **Excel Data Input:** Reads daily work entries (start time, end time, notes) from a structured Excel file.
 *   **Google Calendar Integration:** Imports events from your Google Calendar, including start time, end time, and title, and appends them to the Excel file.
+<<<<<<< HEAD
+=======
+    *   **Conflict Resolution:** When importing Google Calendar events, the system intelligently handles time overlaps with existing Excel entries. A graphical dialog will appear, allowing you to choose which events to keep (new, existing, both, or neither) using checkboxes, ensuring no data is overwritten without your explicit consent.
+>>>>>>> f3bd1b1e367192c48764b2eb3b7949f049fce562
 *   **Dynamic Row Addition:** Automatically adds new rows on the timesheet webpage for multiple entries on the same day.
 *   **Robust Field Filling:** Uses Selenium with explicit waits and JavaScript execution for reliable data entry.
 
@@ -32,7 +40,11 @@ This project provides a Python script (`timesheet_filler.py`) to automate the pr
 
 Make sure you have Python installed. Then, install the required libraries:
 ```bash
+<<<<<<< HEAD
 pip install pandas selenium webdriver-manager openpyxl google-api-python-client google-auth-httplib2 google-auth-oauthlib customtkinter
+=======
+pip install pandas selenium webdriver-manager openpyxl google-api-python-client google-auth-httplib2 google-auth-oauthlib
+>>>>>>> f3bd1b1e367192c48764b2eb3b7949f049fce562
 ```
 
 ### 3. Set Up Google Calendar API Credentials
@@ -52,7 +64,11 @@ For detailed, step-by-step instructions, please refer to the official Google doc
 Execute the `timesheet_gui.py` script to open the graphical user interface:
 
 ```bash
+<<<<<<< HEAD
 python timesheet_gui.py
+=======
+python c:\Users\Golan-New_PC\timesheet\timesheet_gui.py
+>>>>>>> f3bd1b1e367192c48764b2eb3b7949f049fce562
 ```
 
 From the GUI, you can:
@@ -61,4 +77,14 @@ From the GUI, you can:
 
 ## Important Note
 
+<<<<<<< HEAD
 The script will fill in all the timesheet entries based on your Excel file. **It will NOT automatically click the "Submit" or "Save" button on the webpage.** After the script finishes, you will need to manually review the entries on the webpage and click the appropriate button to finalize your timesheet submission.
+=======
+<<<<<<<< HEAD:GEMINI.md
+The script will fill in all the timesheet entries based on your Excel file. **It will NOT automatically click the "Submit" or "Save" button on the webpage.** After the script finishes, you will need to manually review the entries on the webpage and click the appropriate button to finalize your timesheet submission.
+========
+This script will fill in all the timesheet entries based on your Excel file. **It will NOT automatically click the "Submit" or "Save" button on the webpage.** After the script finishes, you will need to manually review the entries on the webpage and click the appropriate button to finalize your timesheet submission.
+
+```
+>>>>>>>> f3bd1b1e367192c48764b2eb3b7949f049fce562:README.md
+>>>>>>> f3bd1b1e367192c48764b2eb3b7949f049fce562
