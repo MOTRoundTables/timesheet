@@ -429,9 +429,17 @@ def change_month(delta):
 
 def import_calendar_data():
     excel_path = excel_path_var.get()
-    if not os.path.exists(excel_path):
-        messagebox.showerror("Error", "Cannot import: Excel file not found.")
+    if not excel_path:
+        messagebox.showerror("Error", "Excel file path cannot be empty.")
         return
+
+    if not os.path.exists(excel_path):
+        if not messagebox.askyesno("Create New File?", f"The Excel file was not found at:\n\n{excel_path}\n\nDo you want to create it?"):
+            output_text.insert(END, "File creation cancelled by user.\n", "info")
+            return
+        # If user says yes, we just continue. The creation is handled by the backend function.
+        output_text.insert(END, f"A new Excel file will be created at the specified path.\n", "info")
+
     if not calendar_var.get():
         messagebox.showinfo("Info", "Please enable Google Calendar integration.")
         return
