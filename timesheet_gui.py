@@ -261,7 +261,16 @@ def update_total_hours_display():
     try:
         df = pd.read_excel(excel_path)
         if "שעות" in df.columns:
-            total = df["שעות"].sum()
+            total = 0.0
+            for value in df["שעות"]:
+                if pd.isna(value):
+                    continue
+                elif isinstance(value, datetime.time):
+                    # Convert time object to hours (handle 00:00:00 and 00:00)
+                    total += value.hour + value.minute / 60.0 + value.second / 3600.0
+                else:
+                    # Handle numeric values
+                    total += float(value)
             total_hours_var.set(f"Total Hours: {total:.2f}")
         else:
             total_hours_var.set("Total Hours: N/A ('Hours' column missing)")
@@ -383,7 +392,8 @@ def run_script():
 
 def execute_script_in_thread():
     try:
-        command = ["python", "C:\\Users\\Golan-New_PC\\timesheet\\timesheet_filler.py"]
+        excel_path = excel_path_var.get()
+        command = ["python", "C:\\Users\\Golan-New_PC\\timesheet\\timesheet_filler.py", "--excel-file", excel_path]
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', errors='replace', creationflags=subprocess.CREATE_NO_WINDOW)
         for line in iter(process.stdout.readline, ''):
             output_text.insert(END, line)

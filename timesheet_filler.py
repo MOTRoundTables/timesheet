@@ -247,7 +247,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Automate timesheet filling.')
     parser.add_argument('--headless', action='store_true', help='Run in headless mode.')
     parser.add_argument('--dry-run', action='store_true', help='Run without making any changes.')
+    parser.add_argument('--excel-file', type=str, help='Path to Excel file (overrides config.py)')
     args = parser.parse_args()
 
-    # Use credentials and file path from config.py
-    automate_timesheet(config.excel_file_path, config.username, config.password, dry_run=args.dry_run, headless=args.headless)
+    # Use Excel file path from argument if provided, otherwise from config.py
+    excel_file = args.excel_file if args.excel_file else config.excel_file_path
+    automate_timesheet(excel_file, config.username, config.password, dry_run=args.dry_run, headless=args.headless)
