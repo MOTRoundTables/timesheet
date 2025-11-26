@@ -22,6 +22,7 @@ working/
 .gemini
 GEMINI.md
 .claude/
+.kiro/
 
 # Ignore build artifacts
 build/
