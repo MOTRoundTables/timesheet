@@ -114,16 +114,35 @@ From the GUI, follow the guided steps:
 
 *  The script will fill in all the timesheet entries based on your Excel file. **It will NOT automatically click the "Submit" or "Save" button on the webpage.** After the script finishes, you will need to manually review the entries on the webpage and click the appropriate button to finalize your timesheet submission.
 
-## Recent Updates
+## Version History
 
-### Job Assignment Auto-fill Feature
-*   Added a new "Step 3: Job Assignment (Optional)" section in the GUI
-*   Users can now enable automatic job assignment filling for all timesheet entries
-*   Configurable job value and job name fields with sensible defaults
-*   Robust implementation with multiple fallback methods for maximum compatibility
-*   Command-line support for `--job-value` and `--job-name` parameters in `timesheet_filler.py`
-*   Enhanced error handling to prevent job assignment issues from breaking the entire automation
+### Version 0.2 (Current) - What's New
 
-### Enhanced .gitignore
-*   Updated to only track essential project files
-*   Automatically ignores build artifacts, backups, and sensitive configuration files
+#### New Features
+*   **Job Assignment Auto-fill**: Automatically populate job assignment fields for all timesheet entries
+    *   New "Step 3: Job Assignment (Optional)" section in the GUI
+    *   Configurable job value and job name fields with sensible defaults
+    *   Command-line support: `--job-value` and `--job-name` parameters in `timesheet_filler.py`
+    *   Intelligent filling with multiple fallback methods for maximum compatibility
+    *   Robust error handling to prevent issues from breaking the automation
+
+#### Improvements
+*   Updated GUI layout with 4-step workflow (previously 3 steps)
+*   Enhanced .gitignore to only track essential project files
+*   Automatically ignores build artifacts, backups, test files, and sensitive configuration
+*   Improved security: Build artifacts and executables no longer tracked in repository
+*   Updated application screenshot showing new features
+
+#### Bug Fixes
+*   Fixed time normalization to properly handle HH:MM and HH:MM:SS formats
+*   Improved handling of datetime.time objects in Excel files
+
+### Version 0.1 - Initial Release
+
+#### Core Features
+*   Automated login and timesheet filling with Selenium
+*   Google Calendar integration with conflict resolution
+*   Excel overlap validation and editing tools
+*   Manual entry form for quick additions
+*   Automatic backups before modifications
+*   Modern GUI with ttkbootstrap

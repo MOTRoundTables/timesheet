@@ -29,5 +29,7 @@ dist/
 *.spec
 *.exe
 
-# Ignore backup files
+# Ignore backup files and test files
 *_backup_*.xlsx
+test2.xlsx
+‏‏‏‏test2.xlsx
