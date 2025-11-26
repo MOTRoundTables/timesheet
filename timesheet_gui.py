@@ -41,8 +41,28 @@ def create_backup(excel_path, backup_dir):
     except Exception as e:
         output_text.insert(END, f"Error creating backup: {e}\n", "danger")
 
+def normalize_time_to_string(time_value):
+    """Convert time value to HH:MM string format, handling datetime.time objects and strings."""
+    if pd.isna(time_value):
+        return None
+    if isinstance(time_value, datetime.time):
+        return time_value.strftime('%H:%M')
+    if isinstance(time_value, str):
+        # Handle both HH:MM and HH:MM:SS formats
+        time_value = time_value.strip()
+        if len(time_value) == 8 and time_value.count(':') == 2:  # HH:MM:SS
+            return time_value[:5]  # Return HH:MM
+        return time_value
+    return str(time_value)
+
 def calculate_hours_from_strings(start_str, end_str):
     try:
+        # Normalize inputs to handle both time objects and strings
+        start_str = normalize_time_to_string(start_str)
+        end_str = normalize_time_to_string(end_str)
+        if not start_str or not end_str:
+            return 0.0
+
         start_time = datetime.datetime.strptime(start_str, '%H:%M')
         end_time = datetime.datetime.strptime(end_str, '%H:%M')
         if end_time < start_time: end_time += datetime.timedelta(days=1)
@@ -329,10 +349,17 @@ def execute_excel_overlap_check_in_thread():
             messagebox.showerror("Error", f"Excel file not found at:\n{excel_path}")
             return
         if backup_enabled_var.get(): create_backup(excel_path, backup_path_var.get())
-        df = pd.read_excel(excel_path, dtype={'זמן התחלה': str, 'זמן סיום': str})
+        df = pd.read_excel(excel_path)
         df.columns = ["שנה", "חודש", "יום", "זמן התחלה", "זמן סיום", "שעות", "מה"]
+
+        # Normalize time values to string format and then to time objects
+        df['זמן התחלה'] = df['זמן התחלה'].apply(normalize_time_to_string)
+        df['זמן סיום'] = df['זמן סיום'].apply(normalize_time_to_string)
+
+        # Convert to time objects for comparison
         df['start_dt'] = pd.to_datetime(df['זמן התחלה'], format='%H:%M', errors='coerce').dt.time
         df['end_dt'] = pd.to_datetime(df['זמן סיום'], format='%H:%M', errors='coerce').dt.time
+
         invalid_rows = df[df['start_dt'].isna() | df['end_dt'].isna()]
         if not invalid_rows.empty:
             output_text.insert(END, "Warning: Some rows had invalid time formats and were ignored:\n", "danger")
