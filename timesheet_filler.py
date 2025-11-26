@@ -12,7 +12,7 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 import config  # Import the config file
 import argparse # Import argparse
 
-def automate_timesheet(excel_file_path, username, password, dry_run=False, headless=False):
+def automate_timesheet(excel_file_path, username, password, dry_run=False, headless=False, job_value=None, job_name=None):
     try:
         from selenium.webdriver.chrome.service import Service
         from selenium.webdriver.chrome.options import Options
@@ -219,7 +219,48 @@ def automate_timesheet(excel_file_path, username, password, dry_run=False, headl
                         WebDriverWait(driver, 10).until(
                             EC.invisibility_of_element_located((By.ID, notes_popup_div_id))
                         )
-                        
+
+                        # Fill job assignment if provided
+                        if job_value and job_name:
+                            print(f"    Attempting to fill job assignment for row {current_row_suffix}")
+                            try:
+                                # Find the assignment input field by name pattern
+                                assignment_input_name = f"assignment_name_{current_row_suffix}"
+                                assignment_input = WebDriverWait(driver, 10).until(
+                                    EC.element_to_be_clickable((By.NAME, assignment_input_name))
+                                )
+
+                                # Click the assignment field to open the options
+                                print(f"    Clicking assignment field: {assignment_input_name}")
+                                assignment_input.click()
+
+                                # Wait a moment for the options to appear
+                                time.sleep(0.5)
+
+                                # Find the option with the matching value and click it
+                                # The option might be in a dropdown or popup
+                                option_xpath = f"//option[@value='{job_value}']"
+                                option_element = WebDriverWait(driver, 10).until(
+                                    EC.element_to_be_clickable((By.XPATH, option_xpath))
+                                )
+                                print(f"    Selecting job option with value: {job_value}")
+                                option_element.click()
+
+                                # Alternatively, if the above doesn't work, try using JavaScript to set the value directly
+                                # Find the hidden input that stores the job ID (jid_{row_suffix})
+                                jid_input_name = f"jid_{current_row_suffix}"
+                                try:
+                                    jid_input = driver.find_element(By.NAME, jid_input_name)
+                                    driver.execute_script("arguments[0].value = arguments[1];", jid_input, job_value)
+                                    driver.execute_script("arguments[0].value = arguments[1];", assignment_input, job_name)
+                                    print(f"    Job assignment filled using JavaScript")
+                                except NoSuchElementException:
+                                    print(f"    Warning: Could not find jid input field: {jid_input_name}")
+
+                            except (NoSuchElementException, TimeoutException) as e:
+                                print(f"    Warning: Could not fill job assignment for row {current_row_suffix}: {e}")
+                                # Don't fail the entire entry if job assignment fails
+
                 except (NoSuchElementException, TimeoutException) as e:
                     print(f"    Error filling fields for row {current_row_suffix}: {e}")
                     traceback.print_exc()
@@ -248,8 +289,10 @@ if __name__ == "__main__":
     parser.add_argument('--headless', action='store_true', help='Run in headless mode.')
     parser.add_argument('--dry-run', action='store_true', help='Run without making any changes.')
     parser.add_argument('--excel-file', type=str, help='Path to Excel file (overrides config.py)')
+    parser.add_argument('--job-value', type=str, help='Job assignment value to auto-fill')
+    parser.add_argument('--job-name', type=str, help='Job assignment name to auto-fill')
     args = parser.parse_args()
 
     # Use Excel file path from argument if provided, otherwise from config.py
     excel_file = args.excel_file if args.excel_file else config.excel_file_path
-    automate_timesheet(excel_file, config.username, config.password, dry_run=args.dry_run, headless=args.headless)
+    automate_timesheet(excel_file, config.username, config.password, dry_run=args.dry_run, headless=args.headless, job_value=args.job_value, job_name=args.job_name)

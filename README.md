@@ -1,7 +1,3 @@
-Of course. Here is the complete README in GitHub-flavored Markdown format, including code blocks, tables, and image embedding. You can copy and paste this directly into a `README.md` file for your repository.
-
----
-
 # Timesheet Automation Project
 
 This project provides a comprehensive GUI application to manage and automate the process of filling out an online timesheet. It reads data from an Excel file, allows for powerful data validation and editing, integrates with Google Calendar, and finally uses Selenium to input the data into a web-based timesheet system.
@@ -12,6 +8,7 @@ This project provides a comprehensive GUI application to manage and automate the
 *   **Automated Login:** Logs into the timesheet system using credentials stored in `config.py`.
 *   **Dynamic Row Addition:** Automatically adds new rows on the timesheet webpage for multiple entries on the same day.
 *   **Robust Field Filling:** Uses Selenium with explicit waits for reliable data entry.
+*   **Auto-fill Job Assignment:** Automatically fills job assignment fields for all timesheet entries with a configurable job value and name, saving time on repetitive selections.
 
 ### Data Management & Integrity
 *   **File Selection from GUI:** Instead of being limited to a hardcoded path, you can browse and select any Excel file directly from the application.
@@ -35,9 +32,20 @@ This project provides a comprehensive GUI application to manage and automate the
         6.  **Dynamic Update:** Your decision in the pop-up directly updates the in-memory list of events, ensuring subsequent conflict checks reflect the most current state of your timesheet data.
 
 ### User Interface
-*   **Guided Workflow:** The application is structured into "Step 1," "Step 2," and "Step 3" to guide you through a logical workflow, preventing common errors like overwriting manual fixes.
+*   **Guided Workflow:** The application is structured into "Step 1," "Step 2," "Step 3," and "Step 4" to guide you through a logical workflow, preventing common errors like overwriting manual fixes.
 *   **Live Total Hours Display:** A status bar at the bottom of the application shows the total hours calculated from your Excel file, updating in real-time after any changes.
 *   **Modern Themed Interface:** Built with `ttkbootstrap` for a clean, professional, and easy-to-use experience.
+
+### Job Assignment Automation (New Feature)
+*   **Configurable Auto-fill:** Enable the "Auto-fill job assignment for all entries" checkbox to automatically populate job assignment fields for every timesheet entry.
+*   **Customizable Values:**
+    *   **Job Value:** The internal job ID (e.g., "3625") that corresponds to the job option in the timesheet system.
+    *   **Job Name:** The display name for the job assignment (e.g., "משרד התחבורה |פרויקטים |100103 |שולחנות עגולים").
+*   **Intelligent Filling:** The system attempts multiple methods to fill the job assignment:
+    1.  Clicks the assignment field to open the options dropdown
+    2.  Selects the option with the matching job value
+    3.  Falls back to JavaScript injection if the dropdown method fails
+*   **Error Handling:** If job assignment fails for a specific row, the automation logs a warning but continues processing other entries, ensuring the entire process doesn't fail.
 
 ## How to Use
 
@@ -89,18 +97,33 @@ python timesheet_gui.py
 
 ## The App
 
-<img src="https://i.imgur.com/kRPjiFw.png" width="400">
+<img src="app_screenshot.png" width="600">
 
 This is the Timesheet Automation application.<br>
-It provides a complete suite of tools to manage and automate your timesheet.
+It provides a complete suite of tools to manage and automate your timesheet, including the new Job Assignment auto-fill feature.
 
 </div>
 
 From the GUI, follow the guided steps:
-1.  **Step 1: Get Events:** Select your Excel file and import events from Google Calendar.
-2.  **Step 2: Review and Edit:** Use the powerful tools to validate overlaps, add manual entries, or clear the sheet.
-3.  **Step 3: Run Automation:** Fill the online timesheet based on the clean data in your Excel file.
+1.  **Step 1: Get Events from Calendar:** Select your Excel file and import events from Google Calendar.
+2.  **Step 2: Review and Edit Excel Data:** Use the powerful tools to validate overlaps, add manual entries, or clear the sheet.
+3.  **Step 3: Job Assignment (Optional):** Enable auto-fill job assignment and configure the job value and name to be automatically filled for all timesheet entries.
+4.  **Step 4: Run Automation:** Fill the online timesheet based on the clean data in your Excel file.
 
 ## Important Note
 
 *  The script will fill in all the timesheet entries based on your Excel file. **It will NOT automatically click the "Submit" or "Save" button on the webpage.** After the script finishes, you will need to manually review the entries on the webpage and click the appropriate button to finalize your timesheet submission.
+
+## Recent Updates
+
+### Job Assignment Auto-fill Feature
+*   Added a new "Step 3: Job Assignment (Optional)" section in the GUI
+*   Users can now enable automatic job assignment filling for all timesheet entries
+*   Configurable job value and job name fields with sensible defaults
+*   Robust implementation with multiple fallback methods for maximum compatibility
+*   Command-line support for `--job-value` and `--job-name` parameters in `timesheet_filler.py`
+*   Enhanced error handling to prevent job assignment issues from breaking the entire automation
+
+### Enhanced .gitignore
+*   Updated to only track essential project files
+*   Automatically ignores build artifacts, backups, and sensitive configuration files

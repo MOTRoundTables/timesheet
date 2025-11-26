@@ -273,6 +273,11 @@ def toggle_backup_fields():
     backup_path_entry.config(state=state)
     backup_browse_button.config(state=state)
 
+def toggle_job_assignment_fields():
+    state = NORMAL if job_assignment_var.get() else DISABLED
+    job_value_entry.config(state=state)
+    job_name_entry.config(state=state)
+
 def update_total_hours_display():
     excel_path = excel_path_var.get()
     if not os.path.exists(excel_path):
@@ -421,6 +426,12 @@ def execute_script_in_thread():
     try:
         excel_path = excel_path_var.get()
         command = ["python", "C:\\Users\\Golan-New_PC\\timesheet\\timesheet_filler.py", "--excel-file", excel_path]
+
+        # Add job assignment parameters if enabled
+        if job_assignment_var.get():
+            command.extend(["--job-value", job_value_var.get()])
+            command.extend(["--job-name", job_name_var.get()])
+
         process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', errors='replace', creationflags=subprocess.CREATE_NO_WINDOW)
         for line in iter(process.stdout.readline, ''):
             output_text.insert(END, line)
@@ -579,8 +590,29 @@ add_manual_button.pack(side=LEFT, fill=X, expand=True, ipady=4, padx=5)
 clear_sheet_button = ttk.Button(tools_button_frame, text="Clear All Entries", command=clear_sheet, bootstyle="danger-outline")
 clear_sheet_button.pack(side=LEFT, fill=X, expand=True, ipady=4, padx=(5,0))
 
-# --- Step 3: Run Automation Frame ---
-run_frame = ttk.LabelFrame(main_frame, text="Step 3: Run Automation", padding=10)
+# --- Step 3: Job Assignment Configuration Frame ---
+job_assignment_frame = ttk.LabelFrame(main_frame, text="Step 3: Job Assignment (Optional)", padding=10)
+job_assignment_frame.pack(fill=X, padx=5, pady=5)
+
+job_assignment_var = tk.BooleanVar(value=False)
+job_assignment_check = ttk.Checkbutton(job_assignment_frame, text="Auto-fill job assignment for all entries", variable=job_assignment_var, command=lambda: toggle_job_assignment_fields(), bootstyle="round-toggle")
+job_assignment_check.pack(anchor="w", padx=5, pady=5)
+
+job_fields_frame = ttk.Frame(job_assignment_frame)
+job_fields_frame.pack(fill=X, padx=5, pady=(0,5))
+
+ttk.Label(job_fields_frame, text="Job Value:").pack(side=LEFT, padx=(0, 5))
+job_value_var = tk.StringVar(value="3625")
+job_value_entry = ttk.Entry(job_fields_frame, textvariable=job_value_var, width=10, state=DISABLED)
+job_value_entry.pack(side=LEFT, padx=(0, 10))
+
+ttk.Label(job_fields_frame, text="Job Name:").pack(side=LEFT, padx=(0, 5))
+job_name_var = tk.StringVar(value="משרד התחבורה |פרויקטים |100103 |שולחנות עגולים")
+job_name_entry = ttk.Entry(job_fields_frame, textvariable=job_name_var, state=DISABLED)
+job_name_entry.pack(side=LEFT, fill=X, expand=True)
+
+# --- Step 4: Run Automation Frame ---
+run_frame = ttk.LabelFrame(main_frame, text="Step 4: Run Automation", padding=10)
 run_frame.pack(fill=X, padx=5, pady=5)
 run_button = ttk.Button(run_frame, text="Run Automation on Webtime", command=run_script, bootstyle="primary")
 run_button.pack(fill=X, ipady=5)

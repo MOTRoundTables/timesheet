@@ -1,9 +1,33 @@
+# Ignore everything by default
+*
+!*/
+
+# Except these specific files
+!README.md
+!config_example.py
+!example.xlsx
+!google_calendar_integration.py
+!timesheet_filler.py
+!timesheet_gui.py
+!update_calendar.py
+!app_screenshot.png
+
+# But still ignore these patterns
 __pycache__/
 *.pyc
-working/
 config.py
-GEMINI.md
 credentials.json
 token.json
-/timesheet
-/.gemini
+working/
+.gemini
+GEMINI.md
+.claude/
+
+# Ignore build artifacts
+build/
+dist/
+*.spec
+*.exe
+
+# Ignore backup files
+*_backup_*.xlsx
